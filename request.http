@@ -1,0 +1,37 @@
+@id = cd71f015-148b-4ff9-aa0c-3506112f67f5
+
+POST http://localhost:5000/user
+Content-Type: application/json
+
+{
+  "name": "Jon",
+  "password": "12345"
+}
+
+###
+
+GET http://localhost:5000/user/{{id}}
+
+###
+
+PUT http://localhost:5000/user/{{id}}
+Content-Type: application/json
+
+{
+  "name": "Jon",
+  "password": "12345"
+}
+
+###
+
+DELETE http://localhost:5000/user/{{id}}
+
+###
+
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+  "name": "Jon",
+  "password": "12345"
+}
