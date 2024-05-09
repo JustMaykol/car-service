@@ -21,12 +21,16 @@ def create_car():
     model = request.json['model']
     color = request.json['color']
 
-    year = request.json['year']
+    year = int(request.json['year'])
     type = request.json['type']
 
     image = request.json['image']
+    stock = int(request.json['stock'])
 
-    if not brand or not model or not color or not year or not type or not image:
+    price = int(request.json['price'])
+    discount = int(request.json['discount'])
+
+    if not brand or not model or not color or not year or not type or not image or not stock or not price or not discount:
         return jsonify({'message': 'missing data'}), 400
 
     db.insert_one({
@@ -39,7 +43,11 @@ def create_car():
         'year': year,
         'type': type,
 
-        'image': image
+        'image': image,
+        'stock': stock,
+
+        'price': price,
+        'discount': discount
     })
 
     return jsonify({'message': 'created'}), 200
@@ -61,12 +69,16 @@ def update_car(_id):
     model = request.json['model']
     color = request.json['color']
 
-    year = request.json['year']
+    year = int(request.json['year'])
     type = request.json['type']
 
     image = request.json['image']
+    stock = int(request.json['stock'])
 
-    if not brand or not model or not color or not year or not type or not image:
+    price = int(request.json['price'])
+    discount = int(request.json['discount'])
+
+    if not brand or not model or not color or not year or not type or not image or not stock or not price or not discount:
         return jsonify({'message': 'missing data'}), 400
 
     car = db.find_one({'_id': _id})
@@ -83,7 +95,11 @@ def update_car(_id):
             'year': year,
             'type': type,
 
-            'image': image
+            'image': image,
+            'stock': stock,
+
+            'price': price,
+            'discount': discount
         }
     })
 
@@ -100,6 +116,19 @@ def delete_car(_id):
     db.delete_one({'_id': _id})
 
     return jsonify({'message': 'deleted'}), 200
+
+
+# car search
+
+
+@app.route('/car/', methods=['GET'])
+def read_car():
+    cars = list(db.find())
+
+    if not cars:
+        return jsonify({'message': 'cars not found'}), 404
+
+    return jsonify(cars), 200
 
 
 if __name__ == '__main__':
