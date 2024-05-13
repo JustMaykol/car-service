@@ -1,7 +1,7 @@
 from uuid import uuid4
+from pydantic import BaseModel
 
 from fastapi import FastAPI
-from pydantic import BaseModel
 from pymongo import MongoClient
 
 app = FastAPI(
