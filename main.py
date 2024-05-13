@@ -1,8 +1,7 @@
 from uuid import uuid4
-from pydantic import BaseModel
 
 from fastapi import FastAPI
-
+from pydantic import BaseModel
 from pymongo import MongoClient
 
 app = FastAPI(
@@ -32,7 +31,7 @@ db = client['current']['car']
 
 # car crud
 
-@app.post('/car', description="Create a new car")
+@app.post('/car', description="Method to create a new car")
 async def create_car(car: Car):
     db.insert_one({
         '_id': str(uuid4()),
@@ -54,7 +53,7 @@ async def create_car(car: Car):
     return {'message': 'created'}, 200
 
 
-@app.get('/car/{_id}')
+@app.get('/car/{_id}', description="Method to read a car by id")
 async def read_car(_id: str):
     document = db.find_one({'_id': _id})
 
@@ -64,7 +63,7 @@ async def read_car(_id: str):
     return document, 200
 
 
-@app.put('/car/{_id}')
+@app.put('/car/{_id}', description="Method to update a car by id")
 async def update_car(_id: str, car: Car):
     document = db.find_one({'_id': _id})
 
@@ -91,7 +90,7 @@ async def update_car(_id: str, car: Car):
     return {'message': 'updated'}, 200
 
 
-@app.delete('/car/{_id}')
+@app.delete('/car/{_id}', description="Method to delete a car by id")
 async def delete_car(_id):
     document = db.find_one({'_id': _id})
 
