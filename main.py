@@ -39,8 +39,11 @@ class Car(BaseModel):
     available: bool = True
 
 
-client = MongoClient('mongodb://localhost:27017/')
-db = client['current']['car']
+try:
+    client = MongoClient('mongodb://localhost:27017/')
+    db = client['current']['purchase']
+except Exception as exception:
+    print(f"Error connecting to MongoDB: {exception}")
 
 
 # car crud
