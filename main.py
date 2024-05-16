@@ -38,7 +38,7 @@ class Car(BaseModel):
 
 try:
     client = MongoClient('mongodb://localhost:27017/')
-    db = client['purchase']['production']
+    db = client['car']['production']
 except Exception as exception:
     print(f"Error connecting to MongoDB: {exception}")
 
