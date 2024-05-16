@@ -31,17 +31,14 @@ class Car(BaseModel):
     type: str
 
     image: str
-    stock: int
-
     price: int
-    discount: int
 
     available: bool = True
 
 
 try:
     client = MongoClient('mongodb://localhost:27017/')
-    db = client['current']['purchase']
+    db = client['purchase']['production']
 except Exception as exception:
     print(f"Error connecting to MongoDB: {exception}")
 
@@ -69,10 +66,7 @@ async def create_car(car: Car):
         'type': car.type,
 
         'image': car.image,
-        'stock': car.stock,
-
         'price': car.price,
-        'discount': car.discount,
 
         'available': car.available
     })
@@ -117,10 +111,7 @@ async def update_car(car_id: str, car: Car):
             'type': car.type,
 
             'image': car.image,
-            'stock': car.stock,
-
             'price': car.price,
-            'discount': car.discount,
 
             'available': car.available
         }
@@ -145,7 +136,7 @@ async def delete_car(car_id):
     return {'message': f'deleted: {car_id}'}, 200
 
 
-# car search
+# cars search
 
 
 @app.get(
